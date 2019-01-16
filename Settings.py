@@ -165,6 +165,8 @@ class Settings:
         padx=8
         pady=8
 
+        print(self.ligneFunction)
+
         if self.fonctionSelector.get() == self.listeOptions[0]: # Premier ordre
             firstOrderModal = FirstOrderModal(self.window)
             firstOrder = FirstOrder(*firstOrderModal.result)
@@ -198,26 +200,28 @@ class Settings:
             self.tFunctions.append(derivative)
 
             K, inversed = derivativeModal.result
-            frameDerivative = tk.LabelFrame(self.window, text="2nd ordre", padx=padx, pady=pady)
+            frameDerivative = tk.LabelFrame(self.window, text="Dérivée", padx=padx, pady=pady)
             labelDerivative = tk.Label(frameDerivative, text=" K=" + str(K) + "   inversée=" + str(inversed), padx=padx, pady=pady).grid(row=1, column=1)
             logoDerivative = tk.PhotoImage(file="Assets/Derivative.pgm")
             logoLabelDerivative = tk.Label(frameDerivative, image=logoDerivative)
             logoLabelDerivative.photo = logoDerivative
             logoLabelDerivative.grid(row=1, column=2)
             frameDerivative.grid(row=self.ligneFunction, column=1, columnspan=2)
+            self.ligneFunction += 1
         if self.fonctionSelector.get() == self.listeOptions[3]: #Intégrale
             integralModal = IntegralModal(self.window)
             integral = Integral(*integralModal.result)
             self.tFunctions.append(integral)
 
             K, inversed = integralModal.result
-            frameIntegral = tk.LabelFrame(self.window, text="2nd ordre", padx=padx, pady=pady)
+            frameIntegral = tk.LabelFrame(self.window, text="Intégrale", padx=padx, pady=pady)
             labelIntegral = tk.Label(frameIntegral, text=" K=" + str(K) + "   inversée=" + str(inversed), padx=padx, pady=pady).grid(row=1, column=1)
             logoIntegral = tk.PhotoImage(file="Assets/Integral.pgm")
             logoLabelIntegral = tk.Label(frameIntegral, image=logoIntegral)
             logoLabelIntegral.photo = logoIntegral
             logoLabelIntegral.grid(row=1, column=2)
             frameIntegral.grid(row=self.ligneFunction, column=1, columnspan=2)
+            self.ligneFunction += 1
 
     """
     Destruction de la fenêtre
