@@ -4,8 +4,12 @@ import tkinter as tk
 import numpy as np
 from Modals.FirstOrderModal import FirstOrderModal
 from Modals.SecondOrderModal import SecondOrderModal
+from Modals.DerivativeModal import DerivativeModal
+from Modals.IntegralModal import IntegralModal
 from Functions.FirstOrder import FirstOrder
 from Functions.SecondOrder import SecondOrder
+from Functions.Derivative import Derivative
+from Functions.Integral import Integral
 from Graph import Graph
 
 """
@@ -42,7 +46,7 @@ class Settings:
         self.valeurPhasedBmin = tk.StringVar()
         self.valeurPhasedBmax = tk.StringVar()
 
-        self.listeOptions = ("1er ordre", "2nd ordre")
+        self.listeOptions = ("1er ordre", "2nd ordre", "Dérivée", "Intégrale")
         self.fonctionSelector = tk.StringVar()
 
         #Tableau contenant les fonctions à afficher
@@ -188,6 +192,32 @@ class Settings:
             logoLabelSecondOrder.photo = logoSecondOrder
             logoLabelSecondOrder.grid(row=1, column=2)
             frameSecondOrder.grid(row=self.ligneFunction, column=1, columnspan=2)
+        if self.fonctionSelector.get() == self.listeOptions[2]: #Dérivée
+            derivativeModal = DerivativeModal(self.window)
+            derivative = Derivative(*derivativeModal.result)
+            self.tFunctions.append(derivative)
+
+            K, inversed = derivativeModal.result
+            frameDerivative = tk.LabelFrame(self.window, text="2nd ordre", padx=padx, pady=pady)
+            labelDerivative = tk.Label(frameDerivative, text=" K=" + str(K) + "   inversée=" + str(inversed), padx=padx, pady=pady).grid(row=1, column=1)
+            logoDerivative = tk.PhotoImage(file="Assets/Derivative.pgm")
+            logoLabelDerivative = tk.Label(frameDerivative, image=logoDerivative)
+            logoLabelDerivative.photo = logoDerivative
+            logoLabelDerivative.grid(row=1, column=2)
+            frameDerivative.grid(row=self.ligneFunction, column=1, columnspan=2)
+        if self.fonctionSelector.get() == self.listeOptions[3]: #Intégrale
+            integralModal = IntegralModal(self.window)
+            integral = Integral(*integralModal.result)
+            self.tFunctions.append(integral)
+
+            K, inversed = integralModal.result
+            frameIntegral = tk.LabelFrame(self.window, text="2nd ordre", padx=padx, pady=pady)
+            labelIntegral = tk.Label(frameIntegral, text=" K=" + str(K) + "   inversée=" + str(inversed), padx=padx, pady=pady).grid(row=1, column=1)
+            logoIntegral = tk.PhotoImage(file="Assets/Integral.pgm")
+            logoLabelIntegral = tk.Label(frameIntegral, image=logoIntegral)
+            logoLabelIntegral.photo = logoIntegral
+            logoLabelIntegral.grid(row=1, column=2)
+            frameIntegral.grid(row=self.ligneFunction, column=1, columnspan=2)
 
     """
     Destruction de la fenêtre
