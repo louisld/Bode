@@ -9,9 +9,10 @@ Contient deux subplots.
 """
 class Graph:
 
-    def update(self, tGain, tPhase, tx):
+    def update(self, tGain, tPhase, tGainAsympt, tPhaseAsympt, tx):
         fig,(axGain,axPhase)=plot.subplots(2, 1, sharex=True)
 
+        axGain.semilogx(tx, tGainAsympt, linestyle="dashed", color="green")
         axGain.semilogx(tx, tGain)
         #Définitions des graduations pour le diagramme de Gain
         axGain.grid(b=True,which='major', linewidth=1, axis='x')
@@ -20,6 +21,7 @@ class Graph:
         axGain.legend("Gain")
         axGain.set_ylabel("dB")
 
+        axPhase.semilogx(tx, tPhaseAsympt, linestyle="dashed", color="green")
         axPhase.semilogx(tx,tPhase)
         #Définitions des graduations pour le diagramme de Phase
         axPhase.grid(b=True,which='major', linewidth=1, axis='x')

@@ -72,22 +72,30 @@ class Settings:
         #Tableaux contenant les valeurs des corubes
         tPhase = []
         tGain = []
+        tGainAsympt = []
+        tPhaseAsympt = []
         tx = []
         #Création des abcisses sur une échelle logarithmique
-        tx = np.logspace(int(self.gainValue["GainWmin"]), int(self.gainValue["GainWmax"]), num=200)
+        tx = np.logspace(int(self.gainValue["GainWmin"]), int(self.gainValue["GainWmax"]), num=400)
         #On calcule l'abcisse pour chaque ordonnée
         for i in tx:
             gain = 0
             phase = 0
+            gainAsympt = 0
+            phaseAsympt = 0
             #On fait la somme des ordonnées pour chaque fonction
             for function in self.tFunctions:
                 gain += function.getGain(i)
                 phase += function.getPhase(i)
+                gainAsympt += function.getGainAsymptote(i)
+                phaseAsympt += function.getPhaseAsymptote(i)
             tGain.append(gain)
             tPhase.append(phase)
+            tGainAsympt.append(gainAsympt)
+            tPhaseAsympt.append(phaseAsympt)
 
 
-        self.graph.update(tGain, tPhase, tx)
+        self.graph.update(tGain, tPhase, tGainAsympt, tPhaseAsympt, tx)
         self.graph.draw()
 
 
